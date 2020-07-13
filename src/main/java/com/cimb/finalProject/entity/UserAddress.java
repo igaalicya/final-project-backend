@@ -22,10 +22,10 @@ public class UserAddress {
 	
 	private String postalCode;
 	
-	@OneToOne(mappedBy = "userAddress", fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, 
-			CascadeType.PERSIST, CascadeType.REFRESH })
-	@JsonIgnore
-	private User user;
+//	@OneToOne(mappedBy = "userAddress", fetch = FetchType.LAZY, cascade = { CascadeType.DETACH, CascadeType.MERGE, 
+//			CascadeType.PERSIST, CascadeType.REFRESH })
+//	@JsonIgnore
+//	private Users user;
 
 	public int getId() {
 		return id;
@@ -58,13 +58,13 @@ public class UserAddress {
 	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
+//
+//	public Users getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(Users user) {
+//		this.user = user;
+//	}
 	
 }
