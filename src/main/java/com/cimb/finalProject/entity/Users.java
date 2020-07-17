@@ -8,9 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -32,16 +30,14 @@ public class Users {
 	
 	private String address;
 	
+	private String phone;
+	
 	private String role;
 
 	private boolean isVerified;
 	
 	private String verifyToken;
-	
-//	@OneToOne(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "user_address_id")
-//	private UserAddress userAddress;
-	
+		
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "users", cascade = CascadeType.ALL)
 	@JsonIgnore
 	private List<Carts> carts;
@@ -126,14 +122,6 @@ public class Users {
 		this.verifyToken = verifyToken;
 	}
 
-//	public UserAddress getUserAddress() {
-//		return userAddress;
-//	}
-//
-//	public void setUserAddress(UserAddress userAddress) {
-//		this.userAddress = userAddress;
-//	}
-
 	public List<Carts> getCarts() {
 		return carts;
 	}
@@ -164,6 +152,14 @@ public class Users {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	@Override

@@ -15,12 +15,16 @@ public interface VaccineRepo  extends JpaRepository<Vaccines, Integer>  {
 	@Query(value = "SELECT * FROM Vaccines limit 6", nativeQuery = true)
     public Iterable<Vaccines> getVaccinesForHome();
 	
-	@Query(value = "select count(*) from vaccines",nativeQuery = true)
-	public int countVaccines();	
+	@Query(value = "SELECT count(*) FROM vaccines WHERE vaccine_name like %:vaccineName% AND price >=:minPrice AND price <= :maxPrice",nativeQuery = true)
+	public int countVaccines(String vaccineName, int minPrice, int maxPrice);	
 
-	@Query(value = "select count(*) from vaccines v join categories c on c.id = v.categories_id where v.price>= :minPrice and v.price<= :maxPrice and v.vaccine_name like %:vaccineName% and c.category_name=:categoriesName",nativeQuery = true)
-	public int countVaccinesCategory(double minPrice, double maxPrice, String vaccineName, String categoriesName);
-
-	@Query(value = "SELECT * FROM Vaccines limit 9 offset :offset", nativeQuery = true)
-    public Iterable<Vaccines> getVaccinesPerPage(int offset);
+	@Query(value = "SELECT * FROM Vaccines WHERE vaccine_name like %:vaccineName% AND price >=:minPrice AND price <= :maxPrice limit 9 offset :offset", nativeQuery = true)
+    public Iterable<Vaccines> getVaccinesPerPage(int offset, String vaccineName, int minPrice, int maxPrice);
+	
+	// Vaccines with category
+	@Query(value = "SELECT count(*) FROM vaccines v join categories c on c.id = v.categories_id WHERE v.price>= :minPrice AND v.price<= :maxPrice AND v.vaccine_name like %:vaccineName% AND c.category_name=:categoriesName",nativeQuery = true)
+	public int countVaccinesCategories( String vaccineName, int minPrice, int maxPrice, String categoriesName);
+	
+	@Query(value = "SELECT * from vaccines v join categories c on c.id = v.categories_id WHERE v.price>= :minPrice AND v.price<= :maxPrice AND v.vaccine_name like %:vaccineName% AND c.category_name=:categoriesName limit 9 offset :offset",nativeQuery = true)
+	public Iterable<Vaccines> getVaccinesCategories(int offset, String vaccineName, int minPrice, int maxPrice, String categoriesName);
 }

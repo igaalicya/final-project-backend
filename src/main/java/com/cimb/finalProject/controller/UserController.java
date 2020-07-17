@@ -115,6 +115,8 @@ public class UserController {
 	public String verifyUser (@PathVariable String username, @RequestParam String token) {
 		Users findUser = userRepo.findByUsername(username).get();
 		
+		String linkToHome = "http://localhost:3000";
+		
 		if (findUser.getVerifyToken().equals(token)) {
 			findUser.setVerified(true);
 		} else {
@@ -123,7 +125,7 @@ public class UserController {
 		
 		userRepo.save(findUser);
 		
-		return "Succes! Your Account Has Been Verified\n";
+		return "<center><h2>Succes! Your Account Has Been Verified\n <a href=\"" + linkToHome + "\">Click here</a> to go back to Vrome. \n</h2></center>";
 	}
 	
 //	@PutMapping("/{usersId}/address")

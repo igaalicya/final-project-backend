@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cimb.finalProject.dao.TransactionDetailRepo;
 import com.cimb.finalProject.entity.TransactionDetails;
 import com.cimb.finalProject.service.TransactionDetailService;
 
@@ -17,6 +18,9 @@ import com.cimb.finalProject.service.TransactionDetailService;
 @RequestMapping("/transactions/details")
 @CrossOrigin
 public class TransactionDetailController {
+	
+	@Autowired
+	private TransactionDetailRepo transactionDetailRepo;
 	
 	@Autowired
 	private TransactionDetailService transactionDetailService;
@@ -34,6 +38,27 @@ public class TransactionDetailController {
 	@PostMapping("/{vaccinesId}/{transactionsId}")
 	public TransactionDetails postTransactionDetails(@RequestBody TransactionDetails transactionDetails, @PathVariable int vaccinesId, @PathVariable int transactionsId) {
 		return transactionDetailService.postTransactionDetails(transactionDetails, vaccinesId, transactionsId);
+	}
+	
+	@GetMapping("/report")
+	public Iterable<TransactionDetails> getTransactionReport(){
+		return transactionDetailRepo.getTransactionReport();
+	}
+	
+	@GetMapping("/report/categories/{minPrice}/{maxPrice}")
+	public Iterable<TransactionDetails> getTransactionReport(@RequestParam String vaccineName, @PathVariable int minPrice, @PathVariable int maxPrice, @RequestParam String categoriesName){
+		if (maxPrice == 0) {
+			maxPrice = 9999999;
+		}
+		return transactionDetailRepo.getTransactionReportCategories(vaccineName, minPrice, maxPrice, categoriesName);
+	}
+	
+	@GetMapping("/report/all/{minPrice}/{maxPrice}")
+	public Iterable<TransactionDetails> getAllTransactionReport(@RequestParam String vaccineName, @PathVariable int minPrice, @PathVariable int maxPrice){
+		if (maxPrice == 0) {
+			maxPrice = 9999999;
+		}
+		return transactionDetailRepo.getTransactionReportAllCategories(vaccineName, minPrice, maxPrice);
 	}
 	
 }

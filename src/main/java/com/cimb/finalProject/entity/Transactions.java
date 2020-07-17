@@ -26,6 +26,8 @@ public class Transactions {
 	
 	private String completionDate;
 	
+	private String vaccineDate;
+	
 	private int grandTotalPrice;
 	
 	private String buktiTransfer;
@@ -74,6 +76,14 @@ public class Transactions {
 
 	public void setCompletionDate(String completionDate) {
 		this.completionDate = completionDate;
+	}
+
+	public String getVaccineDate() {
+		return vaccineDate;
+	}
+
+	public void setVaccineDate(String vaccineDate) {
+		this.vaccineDate = vaccineDate;
 	}
 
 	public Users getUsers() {

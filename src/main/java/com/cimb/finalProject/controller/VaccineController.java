@@ -59,9 +59,20 @@ public class VaccineController {
 		return vaccineService.getVaccines();
 	}
 	
-	@GetMapping("/page/{offset}")
-	public Iterable<Vaccines> getVaccinesPerPage(@PathVariable int offset) {	
-		return vaccineRepo.getVaccinesPerPage(offset);
+	@GetMapping("/page/{offset}/{minPrice}/{maxPrice}")
+	public Iterable<Vaccines> getVaccinesPerPage(@PathVariable int offset, @RequestParam String vaccineName, @PathVariable int minPrice, @PathVariable int maxPrice) {	
+		if (maxPrice == 0) {
+			maxPrice = 9999999;
+		}
+		return vaccineRepo.getVaccinesPerPage(offset, vaccineName, minPrice, maxPrice);
+	}
+	
+	@GetMapping("/page/categories/{offset}/{minPrice}/{maxPrice}")
+	public Iterable<Vaccines> getVaccinesCategories(@PathVariable int offset, @RequestParam String vaccineName, @PathVariable int minPrice, @PathVariable int maxPrice, @RequestParam String categoriesName) {	
+		if (maxPrice == 0) {
+			maxPrice = 9999999;
+		}
+		return vaccineRepo.getVaccinesCategories(offset, vaccineName, minPrice, maxPrice, categoriesName);
 	}
 	
 	@GetMapping("/home")
@@ -183,9 +194,21 @@ public class VaccineController {
 //		return vaccineService.addVaccines(vaccines, categoriesId);
 //	}
 	
-	@GetMapping("/count/all")
-	public int countVaccines() {		
-		return vaccineRepo.countVaccines();
+	@GetMapping("/count/all/{minPrice}/{maxPrice}")
+	public int countVaccines(@RequestParam String vaccineName, @PathVariable int minPrice, @PathVariable int maxPrice) {	
+		if (maxPrice == 0) {
+			maxPrice = 9999999;
+		}
+		return vaccineRepo.countVaccines(vaccineName, minPrice, maxPrice);
+	}
+	
+	@GetMapping("/count/categories/{minPrice}/{maxPrice}")
+	public int countVaccinesCategories(@RequestParam String vaccineName, @PathVariable int minPrice, @PathVariable int maxPrice, @RequestParam String categoriesName) {	
+		if (maxPrice == 0) {
+			maxPrice = 9999999;
+		}
+		return vaccineRepo.countVaccinesCategories(vaccineName, minPrice, maxPrice, categoriesName);
+		
 	}
 	
 	// buat ngurangin stock pas CO

@@ -1,16 +1,9 @@
 package com.cimb.finalProject.entity;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Package {
@@ -23,16 +16,16 @@ public class Package {
 	private int stock;
 	private int sold;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="package",cascade = CascadeType.ALL)
-	private List<Vaccines> vaccines;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "vaccines", cascade = CascadeType.ALL)
-	@JsonIgnore
-	private List<Carts> carts;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "vaccines", cascade = CascadeType.ALL)
-	@JsonIgnore
-	private List<TransactionDetails> transactionDetails;
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy="package",cascade = CascadeType.ALL)
+//	private List<Vaccines> vaccines;
+//	
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "vaccines", cascade = CascadeType.ALL)
+//	@JsonIgnore
+//	private List<Carts> carts;
+//	
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "vaccines", cascade = CascadeType.ALL)
+//	@JsonIgnore
+//	private List<TransactionDetails> transactionDetails;
 
 	public int getId() {
 		return id;
@@ -82,28 +75,28 @@ public class Package {
 		this.sold = sold;
 	}
 
-	public List<Vaccines> getVaccines() {
-		return vaccines;
-	}
-
-	public void setVaccines(List<Vaccines> vaccines) {
-		this.vaccines = vaccines;
-	}
-
-	public List<Carts> getCarts() {
-		return carts;
-	}
-
-	public void setCarts(List<Carts> carts) {
-		this.carts = carts;
-	}
-
-	public List<TransactionDetails> getTransactionDetails() {
-		return transactionDetails;
-	}
-
-	public void setTransactionDetails(List<TransactionDetails> transactionDetails) {
-		this.transactionDetails = transactionDetails;
-	}
+//	public List<Vaccines> getVaccines() {
+//		return vaccines;
+//	}
+//
+//	public void setVaccines(List<Vaccines> vaccines) {
+//		this.vaccines = vaccines;
+//	}
+//
+//	public List<Carts> getCarts() {
+//		return carts;
+//	}
+//
+//	public void setCarts(List<Carts> carts) {
+//		this.carts = carts;
+//	}
+//
+//	public List<TransactionDetails> getTransactionDetails() {
+//		return transactionDetails;
+//	}
+//
+//	public void setTransactionDetails(List<TransactionDetails> transactionDetails) {
+//		this.transactionDetails = transactionDetails;
+//	}
 	
 }
