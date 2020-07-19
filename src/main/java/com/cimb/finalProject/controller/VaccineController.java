@@ -59,20 +59,40 @@ public class VaccineController {
 		return vaccineService.getVaccines();
 	}
 	
-	@GetMapping("/page/{offset}/{minPrice}/{maxPrice}")
-	public Iterable<Vaccines> getVaccinesPerPage(@PathVariable int offset, @RequestParam String vaccineName, @PathVariable int minPrice, @PathVariable int maxPrice) {	
+	@GetMapping("/page/{offset}/{orderBy}/{minPrice}/{maxPrice}")
+	public Iterable<Vaccines> getVaccinesPerPage(@PathVariable int offset, @RequestParam String vaccineName, @PathVariable String orderBy, @PathVariable int minPrice, @PathVariable int maxPrice) {	
 		if (maxPrice == 0) {
 			maxPrice = 9999999;
 		}
-		return vaccineRepo.getVaccinesPerPage(offset, vaccineName, minPrice, maxPrice);
+		
+		if (orderBy.equals("vaccineNameAsc")) {
+			return vaccineRepo.getVaccinesPerPageNameAsc(offset, vaccineName, minPrice, maxPrice);
+		}else if (orderBy.equals("vaccineNameDesc")) {
+			return vaccineRepo.getVaccinesPerPageNameDesc(offset, vaccineName, minPrice, maxPrice);
+		}else if (orderBy.equals("priceAsc")) {
+			return vaccineRepo.getVaccinesPerPagePriceAsc(offset, vaccineName, minPrice, maxPrice);
+		}else{
+			return vaccineRepo.getVaccinesPerPagePriceDesc(offset, vaccineName, minPrice, maxPrice);
+		}
+		
 	}
 	
-	@GetMapping("/page/categories/{offset}/{minPrice}/{maxPrice}")
-	public Iterable<Vaccines> getVaccinesCategories(@PathVariable int offset, @RequestParam String vaccineName, @PathVariable int minPrice, @PathVariable int maxPrice, @RequestParam String categoriesName) {	
+	@GetMapping("/page/categories/{offset}/{orderBy}/{minPrice}/{maxPrice}")
+	public Iterable<Vaccines> getVaccinesCategories(@PathVariable int offset, @RequestParam String vaccineName, @PathVariable String orderBy, @PathVariable int minPrice, @PathVariable int maxPrice, @RequestParam String categoriesName) {	
 		if (maxPrice == 0) {
 			maxPrice = 9999999;
 		}
-		return vaccineRepo.getVaccinesCategories(offset, vaccineName, minPrice, maxPrice, categoriesName);
+		
+		if (orderBy.equals("vaccineNameAsc")) {
+			return vaccineRepo.getVaccinesCategoriesNameAsc(offset, vaccineName, minPrice, maxPrice, categoriesName);
+		}else if (orderBy.equals("vaccineNameDesc")) {
+			return vaccineRepo.getVaccinesCategoriesNameDesc(offset, vaccineName, minPrice, maxPrice, categoriesName);
+		}else if (orderBy.equals("priceAsc")) {
+			return vaccineRepo.getVaccinesCategoriesPriceAsc(offset, vaccineName, minPrice, maxPrice, categoriesName);
+		}else{
+			return vaccineRepo.getVaccinesCategoriesPriceDesc(offset, vaccineName, minPrice, maxPrice, categoriesName);
+		}
+		
 	}
 	
 	@GetMapping("/home")
@@ -188,12 +208,6 @@ public class VaccineController {
 		return vaccineService.addCategoriesToVaccines(vaccinesId, categoriesId);
 	}
 	
-	// add vaccine plus category
-//	@PostMapping("/categories/{categoriesId}")
-//	public Vaccines addVaccines(@RequestBody Vaccines vaccines, @PathVariable int categoriesId) {
-//		return vaccineService.addVaccines(vaccines, categoriesId);
-//	}
-	
 	@GetMapping("/count/all/{minPrice}/{maxPrice}")
 	public int countVaccines(@RequestParam String vaccineName, @PathVariable int minPrice, @PathVariable int maxPrice) {	
 		if (maxPrice == 0) {
@@ -237,21 +251,30 @@ public class VaccineController {
 		return vaccineRepo.getTransactionReport();
 	}
 	
-	@GetMapping("/report/categories/{minPrice}/{maxPrice}")
-	public Iterable<Vaccines> getTransactionReport(@RequestParam String vaccineName, @PathVariable int minPrice, @PathVariable int maxPrice, @RequestParam String categoriesName){
+	@GetMapping("/report/categories/{orderBy}/{minPrice}/{maxPrice}")
+	public Iterable<Vaccines> getTransactionReport(@RequestParam String vaccineName, @PathVariable String orderBy, @PathVariable int minPrice, @PathVariable int maxPrice, @RequestParam String categoriesName){
 		if (maxPrice == 0) {
 			maxPrice = 9999999;
 		}
-		return vaccineRepo.getTransactionReportCategories(vaccineName, minPrice, maxPrice, categoriesName);
+		if (orderBy.equals("soldAsc")) {
+			return vaccineRepo.getTransactionReportCategoriesAsc(vaccineName, minPrice, maxPrice, categoriesName);
+		}else{
+			return vaccineRepo.getTransactionReportCategoriesDesc(vaccineName, minPrice, maxPrice, categoriesName);
+		}
+		
 	}
 	
-	@GetMapping("/report/all/{minPrice}/{maxPrice}")
-	public Iterable<Vaccines> getAllTransactionReport(@RequestParam String vaccineName, @PathVariable int minPrice, @PathVariable int maxPrice){
+	@GetMapping("/report/all/{orderBy}/{minPrice}/{maxPrice}")
+	public Iterable<Vaccines> getAllTransactionReport(@RequestParam String vaccineName, @PathVariable String orderBy, @PathVariable int minPrice, @PathVariable int maxPrice){
 		if (maxPrice == 0) {
 			maxPrice = 9999999;
 		}
-		return vaccineRepo.getTransactionReportAllCategories(vaccineName, minPrice, maxPrice);
+		
+		if (orderBy.equals("soldAsc")) {
+			return vaccineRepo.getTransactionReportAllCategoriesAsc(vaccineName, minPrice, maxPrice);
+		}else{
+			return vaccineRepo.getTransactionReportAllCategoriesDesc(vaccineName, minPrice, maxPrice);
+		}
 	}
-	
-	
+		
 }

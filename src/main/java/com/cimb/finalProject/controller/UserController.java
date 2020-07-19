@@ -70,6 +70,7 @@ public class UserController {
 		} else {
 			String encodedPassword = pwEncoder.encode(user.getPassword());
 			String verifyToken = pwEncoder.encode(user.getUsername() + user.getEmail());
+			
 
 			user.setPassword(encodedPassword);
 			user.setVerified(false);
@@ -145,16 +146,16 @@ public class UserController {
 	public Users forgetPassword(@RequestBody Users user){
 		Users findUser = userRepo.findByEmail(user.getEmail()).get();
 		String message = "<h1>Reset Password!</h1>\n ";
-		message +="Click this <a href=\"http://localhost:3000/resetPassword/"+findUser.getId()+"/"+findUser.getVerifyToken()+"\">link</a> to reset your password";
+		message +="Click this <a href=\"http://localhost:3000/resetPassword/"+findUser.getId()+"/"+findUser.getUsername()+"\">link</a> to reset your password";
 		emailUtil.sendEmail(user.getEmail(), "Reset Password", message);
 	        return findUser;
 	}
 		
-	@GetMapping("/reset/{userId}/{token}")
-	public Users getUserReset(@PathVariable int userId, @PathVariable String token){
+	@GetMapping("/reset/{userId}/{username}")
+	public Users getUserReset(@PathVariable int userId, @PathVariable String username){
 
 		Users findUser = userRepo.findById(userId).get();
-		findUser = userRepo.findByVerifyToken(token).get();
+		findUser = userRepo.findByUsername(username).get();
 		
 	    return findUser;
 	    }

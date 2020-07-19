@@ -131,7 +131,7 @@ public class DoctorController {
 	@PutMapping("/edit/{id}")
 	public String editDoctors(@RequestParam("file") Optional<MultipartFile> file, @RequestParam("doctorsData") String doctorsString, @PathVariable int id) throws JsonMappingException, JsonProcessingException {
 		
-		Doctors findDoctors = doctorRepo.findById(id).get();
+		Doctors	findDoctors = doctorRepo.findById(id).get();
 				
 		findDoctors = new ObjectMapper().readValue(doctorsString, Doctors.class);
 		
@@ -139,9 +139,9 @@ public class DoctorController {
 		
 		String fileDownloadUri = findDoctors.getImage();
 		
-		if(file.toString() != "Optional Empty") {
+		if(file.toString() != "Optional.empty") {
 			String fileExtension = file.get().getContentType().split("/")[1];
-			String newFileName = "DR-" + date.getTime() + "." + fileExtension;
+			String newFileName = "VAC-" + date.getTime() + "." + fileExtension;
 			
 			String fileName = StringUtils.cleanPath(newFileName);
 			
@@ -153,11 +153,13 @@ public class DoctorController {
 				e.printStackTrace();
 			}
 			
-			fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/doctors/download/")
+			fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/vaccines/download/")
 					.path(fileName).toUriString();
+			
 		}
 		
 		findDoctors.setImage(fileDownloadUri);
+		
 		doctorRepo.save(findDoctors);
 		
 		return fileDownloadUri;
