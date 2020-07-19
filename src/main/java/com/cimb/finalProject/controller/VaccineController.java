@@ -232,6 +232,26 @@ public class VaccineController {
 		return vaccineRepo.save(vaccines);
 	}
 	
+	@GetMapping("/report")
+	public Iterable<Vaccines> getVaccineReport(){
+		return vaccineRepo.getTransactionReport();
+	}
+	
+	@GetMapping("/report/categories/{minPrice}/{maxPrice}")
+	public Iterable<Vaccines> getTransactionReport(@RequestParam String vaccineName, @PathVariable int minPrice, @PathVariable int maxPrice, @RequestParam String categoriesName){
+		if (maxPrice == 0) {
+			maxPrice = 9999999;
+		}
+		return vaccineRepo.getTransactionReportCategories(vaccineName, minPrice, maxPrice, categoriesName);
+	}
+	
+	@GetMapping("/report/all/{minPrice}/{maxPrice}")
+	public Iterable<Vaccines> getAllTransactionReport(@RequestParam String vaccineName, @PathVariable int minPrice, @PathVariable int maxPrice){
+		if (maxPrice == 0) {
+			maxPrice = 9999999;
+		}
+		return vaccineRepo.getTransactionReportAllCategories(vaccineName, minPrice, maxPrice);
+	}
 	
 	
 }

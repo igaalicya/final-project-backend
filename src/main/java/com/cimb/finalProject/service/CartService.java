@@ -18,4 +18,6 @@ public interface CartService {
 	public Carts updateQuantity(Carts carts, int cartsId, int vaccinesId, int usersId);
 	
 	public Iterable<Carts> checkCartsUsers(int usersId, int vaccinesId);
+	
+	public Carts checkQtyCartsUsers(int usersId, int vaccinesId);
 }

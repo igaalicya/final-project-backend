@@ -13,6 +13,9 @@ public interface UserRepo extends JpaRepository<Users, Integer> {
 	public Optional<Users> findByEmail(String email);	
 
 	public Optional<Users> findByVerifyToken(String verifyToken);
+	
+//	@Query(value = "SELECT * FROM Users WHERE NOT (role = 'admin')", nativeQuery = true)
+//	public Itrable<Users> getUserForAdmin(); 
 
     @Query(value = "SELECT * FROM Users WHERE username = :username", nativeQuery = true)
     public Iterable<Users> findUsername(String username);

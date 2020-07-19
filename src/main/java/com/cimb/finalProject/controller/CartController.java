@@ -33,8 +33,13 @@ public class CartController {
     }
 	
 	@GetMapping("/check")
-	public  Iterable<Carts> checkCartsUsers(@RequestParam int vaccinesId, @RequestParam int usersId) {
+	public Iterable<Carts> checkCartsUsers(@RequestParam int vaccinesId, @RequestParam int usersId) {
 		return cartService.checkCartsUsers(usersId, vaccinesId);
+	}
+	
+	@GetMapping("/check/qty")
+	public Carts checkQtyCartsUsers(@RequestParam int vaccinesId, @RequestParam int usersId) {
+		return cartService.checkQtyCartsUsers(usersId, vaccinesId);
 	}
 	
 	@PostMapping("/{usersId}/{vaccinesId}")

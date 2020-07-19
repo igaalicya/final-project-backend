@@ -34,6 +34,8 @@ public class Vaccines {
 	
 	private int stock;
 	
+	private int sold;
+	
 	@ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name = "categories_id")
 	private Categories categories;
@@ -116,6 +118,14 @@ public class Vaccines {
 
 	public void setStock(int stock) {
 		this.stock = stock;
+	}
+
+	public int getSold() {
+		return sold;
+	}
+
+	public void setSold(int sold) {
+		this.sold = sold;
 	}
 
 	public Categories getCategories() {

@@ -11,4 +11,7 @@ public interface CartRepo extends JpaRepository<Carts, Integer> {
 	
 	@Query(value = "SELECT * FROM Carts WHERE users_id = :usersId AND vaccines_id = :vaccinesId", nativeQuery = true)
 	public Iterable<Carts> checkCartsUsers(int usersId, int vaccinesId);
+	
+	@Query(value = "SELECT * FROM Carts WHERE users_id = :usersId AND vaccines_id = :vaccinesId", nativeQuery = true)
+	public Carts checkQtyCartsUsers(int usersId, int vaccinesId);
 }

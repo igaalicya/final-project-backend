@@ -104,4 +104,10 @@ public class CartServiceImpl implements CartService {
 	public Iterable<Carts> checkCartsUsers(int usersId, int vaccinesId){
 		return cartRepo.checkCartsUsers(usersId, vaccinesId);
 	}
+	
+	@Override
+	@Transactional
+	public Carts checkQtyCartsUsers(int usersId, int vaccinesId){
+		return cartRepo.checkQtyCartsUsers(usersId, vaccinesId);
+	}
 }

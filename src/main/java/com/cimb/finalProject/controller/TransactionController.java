@@ -195,12 +195,17 @@ public class TransactionController {
    		transactions.setUsers(findTransaction.getUsers());
    		transactions.setRejectionReason(null);
    		
-   	//data buat kirim email
-   			String getEmail = findTransaction.getUsers().getEmail();
-   		    String getTransactionFullname = findTransaction.getUsers().getFullName();
-   		    String getTransactionDate = findTransaction.getTransactionDate();
-   		    String getVaccineDate = findTransaction.getVaccineDate();
-   		    int getTransactionTotalPrice = findTransaction.getGrandTotalPrice();
+//   		findTransaction.getTransactionDetails().forEach(val ->{
+//			val.getVaccines().setSold(val.getVaccines().getSold() + val.getQuantity());
+//			vaccineRepo.save(val.getVaccines());		
+//		});
+   		
+   		//data buat kirim email
+   		String getEmail = findTransaction.getUsers().getEmail();
+   		String getTransactionFullname = findTransaction.getUsers().getFullName();
+   		String getTransactionDate = findTransaction.getTransactionDate();
+   		String getVaccineDate = findTransaction.getVaccineDate();
+   		int getTransactionTotalPrice = findTransaction.getGrandTotalPrice();
    			
    		String message = "<h1>Transaction Success</h1>\n ";
  	    message +=
@@ -227,11 +232,15 @@ public class TransactionController {
  				"  </tr>\r\n" + 
  	        	"</table> \n\n";
  	        		
- 	        
  	    emailUtil.sendEmail(getEmail, "Transaction Success", message);
    		
    		return transactionRepo.save(transactions);
    		
    	}
+    
+    @GetMapping("/count/all")
+	public int countTransactions(@RequestParam String status) {		
+		return transactionRepo.countTransactions(status);
+	}
 
 }

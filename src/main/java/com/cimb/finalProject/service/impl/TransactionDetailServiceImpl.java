@@ -44,7 +44,7 @@ public class TransactionDetailServiceImpl implements TransactionDetailService{
 
 	     if (findTransactions == null)
 	    	 throw new RuntimeException("sorry, transactions not found");
-	        
+	     
 	     transactionDetails.setVaccines(findVaccines);
 	     transactionDetails.setTransactions(findTransactions);
 	     return transactionDetailRepo.save(transactionDetails);

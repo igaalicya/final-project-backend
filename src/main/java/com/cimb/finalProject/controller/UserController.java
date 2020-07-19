@@ -165,7 +165,7 @@ public class UserController {
 		Optional<Users> findUsers = userRepo.findById(user.getId());
 
 		if (findUsers.toString() == "Optional.empty")
-			throw new RuntimeException("Movies with id " + user.getId() + " does not exist");
+			throw new RuntimeException("Users with id " + user.getId() + " does not exist");
 
 		String encodedPassword = pwEncoder.encode(user.getPassword());
 		user.setPassword(encodedPassword);
@@ -238,7 +238,8 @@ public class UserController {
 		
 		String encodePassword = pwEncoder.encode(users.getPassword());
 		users.setPassword(encodePassword);
-
+		users.setAddress(findUser.getAddress());
+		users.setPhone(findUser.getPhone());
 		users.setVerifyToken(findUser.getVerifyToken());
 		users.setVerified(findUser.isVerified());
 

@@ -45,6 +45,11 @@ public class TransactionDetailController {
 		return transactionDetailRepo.getTransactionReport();
 	}
 	
+	@GetMapping("/report/new")
+	public Iterable<TransactionDetails> getTransactionReportNew(){
+		return transactionDetailRepo.getTransactionReport();
+	}
+	
 	@GetMapping("/report/categories/{minPrice}/{maxPrice}")
 	public Iterable<TransactionDetails> getTransactionReport(@RequestParam String vaccineName, @PathVariable int minPrice, @PathVariable int maxPrice, @RequestParam String categoriesName){
 		if (maxPrice == 0) {

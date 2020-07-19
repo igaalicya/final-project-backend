@@ -16,4 +16,7 @@ public interface TransactionRepo extends JpaRepository<Transactions, Integer> {
 	
 	@Query(value = "SELECT * FROM Transactions WHERE user_id = :usersId", nativeQuery = true)
 	public Iterable<Transactions> getTransactionsByUser(int usersId);
+	
+	@Query(value = "SELECT count(*) FROM Transactions WHERE status like %:status%",nativeQuery = true)
+	public int countTransactions(String status);	
 }
