@@ -141,7 +141,7 @@ public class DoctorController {
 		
 		if(file.toString() != "Optional.empty") {
 			String fileExtension = file.get().getContentType().split("/")[1];
-			String newFileName = "VAC-" + date.getTime() + "." + fileExtension;
+			String newFileName = "DR-" + date.getTime() + "." + fileExtension;
 			
 			String fileName = StringUtils.cleanPath(newFileName);
 			
@@ -153,7 +153,7 @@ public class DoctorController {
 				e.printStackTrace();
 			}
 			
-			fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/vaccines/download/")
+			fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/doctors/download/")
 					.path(fileName).toUriString();
 			
 		}
